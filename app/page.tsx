@@ -1,12 +1,18 @@
-import { Button } from '@/components/ui/button';
+import {
+  Categories,
+  Container,
+  SortPopup,
+  Title,
+  TopBar,
+} from '@/components/shared';
 
 export default function Home() {
   return (
-    <div>
-      Home Page
-      <div>
-        <Button variant="outline">Click me</Button>
-      </div>
-    </div>
+    <>
+      <Container className="mt-8">
+        <Title text="All Pizzas" size="md" className="font-extrabold" />
+      </Container>
+      <TopBar />
+    </>
   );
 }
