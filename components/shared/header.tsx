@@ -8,7 +8,7 @@ type Props = {
   className?: string;
 };
 
-const Header: React.FC<Props> = ({ className }: Props) => {
+export const Header: React.FC<Props> = ({ className }: Props) => {
   return (
     <header className={cn('border border-b', className)}>
       <Container className="flex items-center justify-between py-8">
@@ -39,5 +39,3 @@ const Header: React.FC<Props> = ({ className }: Props) => {
     </header>
   );
 };
-
-export { Header };
