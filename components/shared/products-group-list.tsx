@@ -27,7 +27,9 @@ export const ProductsGroupList = ({
   console.log(useCategoryStore().activeId, 'activeId');
 
   const intersection = useIntersection(intersectionRef, {
-    threshold: 0.4,
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.2,
   });
 
   React.useEffect(() => {
