@@ -1,7 +1,12 @@
+import { Categories, Container, Title } from '@/components/shared';
+
 export default function Home() {
   return (
-    <div>
-      <h1>Hello from home-page</h1>
-    </div>
+    <>
+      <Container className="mt-10">
+        <Title text="All Pizzas" size="lg" className="font-extrabold" />
+        <Categories />
+      </Container>
+    </>
   );
 }
