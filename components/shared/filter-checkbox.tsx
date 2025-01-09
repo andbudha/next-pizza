@@ -18,8 +18,6 @@ export const FilterCheckbox: React.FC<FilterChecboxProps> = ({
   checked,
   name,
 }) => {
-  console.log(checked!, value);
-
   return (
     <div className="flex items-center space-x-2">
       <Checkbox
