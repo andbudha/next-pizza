@@ -1,4 +1,10 @@
-import { Container, Filters, Title, TopBar } from '@/components/shared';
+import {
+  Container,
+  Filters,
+  ProductCard,
+  Title,
+  TopBar,
+} from '@/components/shared';
 
 export default function Home() {
   return (
@@ -14,7 +20,9 @@ export default function Home() {
             <Filters />
           </div>
           {/* right side */}
-          <div className=" flex-1">Pizzas</div>
+          <div className=" flex-1">
+            <ProductCard id={0} price={0} imageUrl={''} name={''} />
+          </div>
         </div>
       </Container>
     </>
