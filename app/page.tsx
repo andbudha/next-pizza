@@ -10,11 +10,11 @@ export default function Home() {
       <Container className="pb-14 mt-10">
         <div className="flex gap-[60px]">
           {/* left side */}
-          <div className="border w-[250px]">
+          <div className=" w-[250px]">
             <Filters />
           </div>
           {/* right side */}
-          <div className="border flex-1">Pizzas</div>
+          <div className=" flex-1">Pizzas</div>
         </div>
       </Container>
     </>
