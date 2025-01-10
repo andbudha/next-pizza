@@ -3,7 +3,6 @@ import { Title } from './title';
 import { FilterCheckbox } from './filter-checkbox';
 import { Input } from '../ui';
 import { RangeSlider } from './range-slider';
-import { Check } from 'lucide-react';
 import { CheckboxFilterGroup } from './checkbox-filter-group';
 
 type Props = {

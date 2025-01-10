@@ -8,7 +8,7 @@ type Props = {
 
 export const Categories = ({ className }: Props) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const cats = ['Pizzas', 'Combo', 'Snacks', 'Baverages', 'Desserts'];
+  const cats = ['Pizzas', 'Breakfast', 'Coffee', 'Baverages', 'Desserts'];
 
   return (
     <div
