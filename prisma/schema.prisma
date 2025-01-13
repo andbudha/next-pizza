@@ -13,6 +13,14 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  cart Cart?
+  orders Order[]
+  verificationCode VerificationCode?
+}
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  products  Product[]
 }
 
 model Product {
@@ -21,4 +29,87 @@ model Product {
   imageUrl  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id])
+  ingredients Ingredient[]
+  items ProductItem[]
+ 
+}
+
+model ProductItem {
+  id        Int      @id @default(autoincrement())
+  price     Int
+  size      String?
+  pizzaType Int?
+  productId Int
+  product  Product @relation(fields: [productId], references: [id])
+  cartItems CartItem[]
+}
+
+model Ingredient {
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Int
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  products  Product[]
+  cartItems    CartItem[]
+
+
+}
+
+model Cart {
+  id        Int      @id @default(autoincrement())
+  userId    Int?     @unique
+  token     String
+  user      User?    @relation(fields: [userId], references: [id])
+  totalAmount Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cartItems CartItem[]
+
+}
+
+model CartItem {
+  id Int @id @default(autoincrement())
+  productItemId Int
+  productItem ProductItem @relation(fields: [productItemId], references: [id])
+  cartId Int
+  cart Cart @relation(fields: [cartId], references: [id])
+  quantity Int
+  ingredients Ingredient[]
+}
+
+enum OrderStatus {
+  PENDING
+  SUCCEEDED
+  CANCELLED
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  userId    Int?     @unique
+  token     String
+  user      User?    @relation(fields: [userId], references: [id])
+  totalAmount Int
+  status    OrderStatus
+  paymentId String?
+  items     Json
+  fullName  String
+  email     String
+  address   String
+  phone     String
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+model VerificationCode {
+  id        Int      @id @default(autoincrement())
+  code      String
+  userId    Int?     @unique
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }
