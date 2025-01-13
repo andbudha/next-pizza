@@ -175,7 +175,7 @@ export default function Home() {
                   ingredients: 'Espresso with steamed milk foam',
                 },
               ]}
-              categoryId={2}
+              categoryId={3}
             />
           </div>
         </div>
