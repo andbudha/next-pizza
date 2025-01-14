@@ -28,7 +28,7 @@ model User {
 }
 model Category {
   id        Int      @id @default(autoincrement())
-  name      String   @unique
+  name      String  
   products  Product[]
 }
 
@@ -47,7 +47,7 @@ model Product {
 
 model ProductItem {
   id        Int      @id @default(autoincrement())
-  price     Int
+  price     Float
   size      String?
   pizzaType Int?
   productId Int
@@ -58,7 +58,7 @@ model ProductItem {
 model Ingredient {
   id        Int      @id @default(autoincrement())
   name      String
-  price     Int
+  price     Float
   imageUrl  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -73,7 +73,7 @@ model Cart {
   userId    Int?     @unique
   token     String
   user      User?    @relation(fields: [userId], references: [id])
-  totalAmount Int
+  totalAmount Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   cartItems CartItem[]
