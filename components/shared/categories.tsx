@@ -10,7 +10,7 @@ type Props = {
 export const Categories = ({ className }: Props) => {
   const categoryActiveId = useCategoryStore((state) => state.activeId);
   const cats = [
-    { id: 1, name: 'Pizzas' },
+    { id: 1, name: 'Pizza' },
     { id: 2, name: 'Breakfast' },
     { id: 3, name: 'Coffee' },
     { id: 4, name: 'Baverages' },
