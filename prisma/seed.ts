@@ -1,6 +1,6 @@
 import { hashSync } from 'bcrypt';
 import { prisma } from './prisma-client';
-import { categories, ingredients } from './constants';
+import { categories, ingredients, products } from './constants';
 
 async function up() {
   await prisma.user.createMany({
@@ -32,9 +32,169 @@ async function up() {
   await prisma.ingredient.createMany({
     data: ingredients,
   });
+  await prisma.product.createMany({
+    data: products,
+  });
+
+  const margherita = await prisma.product.create({
+    data: {
+      name: 'Margherita',
+      imageUrl:
+        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+      categoryId: 1,
+
+      ingredients: {
+        connect: ingredients.slice(0, 8),
+      },
+    },
+  });
+  const pepperoni = await prisma.product.create({
+    data: {
+      name: 'Pepperoni',
+      imageUrl:
+        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+      categoryId: 1,
+
+      ingredients: {
+        connect: ingredients.slice(4, 12),
+      },
+    },
+  });
+
+  const hawaiian = await prisma.product.create({
+    data: {
+      name: 'Hawaiian',
+      imageUrl:
+        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+      categoryId: 1,
+
+      ingredients: {
+        connect: ingredients.slice(6, 15),
+      },
+    },
+  });
+
+  const bbqChicken = await prisma.product.create({
+    data: {
+      name: 'BBQ Chicken',
+      imageUrl:
+        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+      categoryId: 1,
+
+      ingredients: {
+        connect: ingredients.slice(0, 8),
+      },
+    },
+  });
+
+  const veggie = await prisma.product.create({
+    data: {
+      name: 'Veggie',
+      imageUrl:
+        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+      categoryId: 1,
+
+      ingredients: {
+        connect: ingredients.slice(4, 12),
+      },
+    },
+  });
+
+  const fourCheese = await prisma.product.create({
+    data: {
+      name: 'Four Cheese',
+      imageUrl:
+        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+      categoryId: 1,
+
+      ingredients: {
+        connect: ingredients.slice(6, 15),
+      },
+    },
+  });
+  await prisma.productItem.createMany({
+    data: [
+      {
+        productId: margherita.id,
+        price: 10,
+        pizzaType: 1,
+        size: 28,
+      },
+      {
+        productId: margherita.id,
+        price: 11,
+        pizzaType: 2,
+        size: 33,
+      },
+      {
+        productId: pepperoni.id,
+        price: 10,
+        pizzaType: 1,
+        size: 28,
+      },
+      {
+        productId: pepperoni.id,
+        price: 11,
+        pizzaType: 2,
+        size: 33,
+      },
+      {
+        productId: hawaiian.id,
+        price: 10,
+        pizzaType: 1,
+        size: 28,
+      },
+      {
+        productId: hawaiian.id,
+        price: 11,
+        pizzaType: 2,
+        size: 33,
+      },
+      {
+        productId: bbqChicken.id,
+        price: 10,
+        pizzaType: 1,
+        size: 28,
+      },
+      {
+        productId: bbqChicken.id,
+        price: 11,
+        pizzaType: 2,
+        size: 33,
+      },
+      {
+        productId: veggie.id,
+        price: 10,
+        pizzaType: 1,
+        size: 28,
+      },
+      {
+        productId: veggie.id,
+        price: 11,
+        pizzaType: 2,
+        size: 33,
+      },
+      {
+        productId: fourCheese.id,
+        price: 10,
+        pizzaType: 1,
+        size: 28,
+      },
+      {
+        productId: fourCheese.id,
+        price: 11,
+        pizzaType: 2,
+        size: 33,
+      },
+    ],
+  });
 }
+
 async function down() {
   await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "Category" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "Product" RESTART IDENTITY CASCADE;`;
+  await prisma.$executeRaw`TRUNCATE TABLE "ProductItem" RESTART IDENTITY CASCADE;`;
 }
 
 async function main() {
