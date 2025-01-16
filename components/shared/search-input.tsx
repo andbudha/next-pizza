@@ -1,9 +1,11 @@
 'use client';
 import { cn } from '@/lib/utils';
-import { Search } from 'lucide-react';
+import { Api } from '@/services/api-client';
+import { Product } from '@prisma/client';
+import { Divide, Search } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
-import { useClickAway } from 'react-use';
+import { useClickAway, useDebounce } from 'react-use';
 
 type Props = {
   className?: string;
@@ -12,11 +14,37 @@ type Props = {
 export const SearchInput = ({ className }: Props) => {
   const ref = React.useRef<HTMLInputElement>(null);
   const [focused, setFocused] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [products, setProducts] = React.useState<Product[]>([]);
 
   useClickAway(ref, () => {
     setFocused(false);
   });
 
+  useDebounce(
+    async () => {
+      try {
+        const response = await Api.products.search(searchQuery);
+        setProducts(response);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    500,
+    [searchQuery]
+  );
+
+  const catchSearchQueryValueHandler = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const onProductClickHandler = () => {
+    setFocused(false);
+    setSearchQuery('');
+    setProducts([]);
+  };
   return (
     <>
       {focused && (
@@ -36,6 +64,8 @@ export const SearchInput = ({ className }: Props) => {
           type="text"
           placeholder="Search..."
           onFocus={() => setFocused(true)}
+          value={searchQuery}
+          onChange={catchSearchQueryValueHandler}
         />
         <div
           className={cn(
@@ -43,17 +73,27 @@ export const SearchInput = ({ className }: Props) => {
             focused && 'visible opacity-100 top-12'
           )}
         >
-          <Link
-            href={'/product/1'}
-            className="flex items-center  hover:bg-primary/10"
-          >
-            <img
-              src="https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif"
-              alt="Pizza Image"
-              className="h-8 w-8 ml-2 rounded-full"
-            />
-            <div className="px-3 py-2">Margheritta</div>
-          </Link>
+          {products.length > 0 ? (
+            products.map((product) => (
+              <Link
+                href={`/product/${product.id}`}
+                key={product.id}
+                className="flex items-center  hover:bg-primary/10"
+                onClick={onProductClickHandler}
+              >
+                <img
+                  src={product.imageUrl}
+                  alt="Pizza Image"
+                  className="h-8 w-8 ml-2 rounded-full"
+                />
+                <div className="px-3 py-2">{product.name}</div>
+              </Link>
+            ))
+          ) : (
+            <div className="text-center px-2 py-1 text-primary font-bold">
+              No Match Found
+            </div>
+          )}
         </div>
       </div>
     </>
