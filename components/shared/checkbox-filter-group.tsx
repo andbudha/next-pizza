@@ -10,8 +10,10 @@ type Props = {
   limit?: number;
   searchInputPlaceholder?: string;
   onChange?: (values: string[]) => void;
+  onCheckBoxClick: (value: string) => void;
   defaultValue?: string[];
   className?: string;
+  selectedIds: Set<string>;
 };
 
 export const CheckboxFilterGroup = ({
@@ -20,7 +22,9 @@ export const CheckboxFilterGroup = ({
   limit,
   searchInputPlaceholder,
   onChange,
+  onCheckBoxClick,
   className,
+  selectedIds,
 }: Props) => {
   const [showAll, setShowAll] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
@@ -36,7 +40,6 @@ export const CheckboxFilterGroup = ({
   ) => {
     setSearchValue(e.target.value);
   };
-  console.log(ingredientList);
 
   return (
     <>
@@ -68,7 +71,8 @@ export const CheckboxFilterGroup = ({
                 text={item.name}
                 value={String(item.id)}
                 onCheckedChange={(ids) => console.log(ids)}
-                checked={false}
+                checked={selectedIds.has(String(item.id))}
+                onCheckBoxClick={onCheckBoxClick}
               />
             ))}
           </div>

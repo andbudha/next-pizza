@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { Title } from './title';
-import { FilterCheckbox } from './filter-checkbox';
 import { Input } from '../ui';
 import { RangeSlider } from './range-slider';
 import { CheckboxFilterGroup } from './checkbox-filter-group';
@@ -12,15 +11,20 @@ type Props = {
 };
 
 export const Filters = ({ className }: Props) => {
-  const { ingredients } = useFilterIngredients();
+  const { ingredients, selectedIds, onAddId } = useFilterIngredients();
+  console.log(selectedIds);
 
   return (
     <div className={className}>
       <Title text="Filters" size="sm" className="mb-5 font-bold" />
-      <div className="flex flex-col gap-4">
-        <FilterCheckbox text="Create your pizza" value="1" />
-        <FilterCheckbox text="New" value="2" />
-      </div>
+      {/* <div className="flex flex-col gap-4">
+        <FilterCheckbox
+          text="Create your pizza"
+          value="1"
+          onCheckBoxClick={onAddId}
+        />
+        <FilterCheckbox text="New" value="2" onCheckBoxClick={onAddId} />
+      </div> */}
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
         <p className="font-bold mb-3">Price range:</p>
         <div className="flex gap-3 mb-5">
@@ -40,6 +44,8 @@ export const Filters = ({ className }: Props) => {
         title={'Ingredients'}
         items={ingredients}
         limit={6}
+        onCheckBoxClick={onAddId}
+        selectedIds={selectedIds}
       />
     </div>
   );
