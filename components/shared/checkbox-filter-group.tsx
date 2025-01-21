@@ -1,22 +1,26 @@
 'use client';
 import React from 'react';
-import { FilterCheckbox } from './filter-checkbox';
+import { FilterChecboxProps, FilterCheckbox } from './filter-checkbox';
 import { Input, Skeleton } from '../ui';
 import { Ingredient } from '@prisma/client';
 
+type Item = FilterChecboxProps;
+
 type Props = {
+  name?: string;
   title: string;
-  items: Ingredient[];
+  items: Item[];
   limit?: number;
   searchInputPlaceholder?: string;
   onChange?: (values: string[]) => void;
   onCheckBoxClick: (value: string) => void;
   defaultValue?: string[];
   className?: string;
-  selectedIds: Set<string>;
+  selected: Set<string>;
 };
 
 export const CheckboxFilterGroup = ({
+  name,
   title,
   items,
   limit,
@@ -24,14 +28,14 @@ export const CheckboxFilterGroup = ({
   onChange,
   onCheckBoxClick,
   className,
-  selectedIds,
+  selected,
 }: Props) => {
   const [showAll, setShowAll] = React.useState(false);
   const [searchValue, setSearchValue] = React.useState('');
   const skeletonArray = new Array(limit!).fill(0);
   const ingredientList = showAll
     ? items.filter((item) =>
-        item.name.toLowerCase().includes(searchValue.toLowerCase())
+        item.text.toLowerCase().includes(searchValue.toLowerCase())
       )
     : items!.slice(0, limit);
 
@@ -68,11 +72,12 @@ export const CheckboxFilterGroup = ({
             {ingredientList!.map((item, index) => (
               <FilterCheckbox
                 key={index}
-                text={item.name}
-                value={String(item.id)}
+                text={item.text}
+                value={String(item.value)}
                 onCheckedChange={(ids) => console.log(ids)}
-                checked={selectedIds.has(String(item.id))}
+                checked={selected.has(String(item.value))}
                 onCheckBoxClick={onCheckBoxClick}
+                name={name}
               />
             ))}
           </div>

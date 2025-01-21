@@ -8,7 +8,7 @@ export interface FilterChecboxProps {
   checked?: boolean;
   name?: string;
   onCheckedChange?: (checked: boolean) => void;
-  onCheckBoxClick: (value: string) => void;
+  onCheckBoxClick?: (value: string) => void;
 }
 
 export const FilterCheckbox: React.FC<FilterChecboxProps> = ({
@@ -21,7 +21,7 @@ export const FilterCheckbox: React.FC<FilterChecboxProps> = ({
   name,
 }) => {
   const onCheckBoxClickHandler = (value: string) => {
-    onCheckBoxClick(value);
+    onCheckBoxClick!(value);
   };
   return (
     <div className="flex items-center space-x-2">
