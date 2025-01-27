@@ -4,14 +4,14 @@ import { Ingredient } from '@prisma/client';
 import React from 'react';
 import { useSet } from 'react-use';
 
-type Ingredients = {
+type UseFilter = {
   ingredients: Ingredient[];
   selectedIngredients: Set<string>;
   onAddId: (id: string) => void;
 };
-export const useFilterIngredients = (): Ingredients => {
+export const useFilter = (ids: string[] = []): UseFilter => {
   const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
-  const [selectedIngredients, { toggle }] = useSet(new Set<string>([]));
+  const [selectedIngredients, { toggle }] = useSet(new Set<string>(ids));
 
   React.useEffect(() => {
     async function fetchIngredients() {
@@ -26,5 +26,9 @@ export const useFilterIngredients = (): Ingredients => {
     fetchIngredients();
   }, []);
 
-  return { ingredients, selectedIngredients, onAddId: toggle };
+  return {
+    ingredients,
+    selectedIngredients,
+    onAddId: toggle,
+  };
 };
