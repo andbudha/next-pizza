@@ -51,7 +51,7 @@ export const CheckboxFilterGroup = ({
         <div className={className}>
           <p className="font-bold mb-3">{title}</p>
           {skeletonArray.map((_, index) => (
-            <Skeleton className="rounded-[8px] w-full h-6 mb-4" />
+            <Skeleton className="rounded-[8px] w-full h-6 mb-4" key={index} />
           ))}
           <Skeleton className="rounded-[8px] w-[80px] h-6 mt-8" />
         </div>
