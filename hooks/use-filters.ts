@@ -1,34 +1,69 @@
 'use client';
-import { Api } from '@/services/api-client';
-import { Ingredient } from '@prisma/client';
-import React from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { useSet } from 'react-use';
-
-type UseFilter = {
-  ingredients: Ingredient[];
-  selectedIngredients: Set<string>;
-  onAddId: (id: string) => void;
+type PriceRange = {
+  minPrice?: number;
+  maxPrice?: number;
 };
-export const useFilter = (ids: string[] = []): UseFilter => {
-  const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
-  const [selectedIngredients, { toggle }] = useSet(new Set<string>(ids));
+export type QueryFilters = PriceRange & {
+  sizes: string;
+  crusts: string;
+  selectedIngredients: string;
+};
+export type UseFilter = {
+  selectedIngredients: Set<string>;
+  setIngredients: (id: string) => void;
+  prices: PriceRange;
+  setPrices: (price: PriceRange) => void;
+  sizes: Set<string>;
+  setSizes: (key: string) => void;
+  crusts: Set<string>;
+  setCrusts: (key: string) => void;
+  updatePrices: (name: string, event: React.ChangeEvent<EventTarget>) => void;
+};
+export const useFilters = (): UseFilter => {
+  const searchParams = useSearchParams() as unknown as Map<
+    keyof QueryFilters,
+    string
+  >;
+  const [selectedIngredients, { toggle }] = useSet(
+    new Set<string>(searchParams.get('selectedIngredients')?.split(','))
+  );
 
-  React.useEffect(() => {
-    async function fetchIngredients() {
-      try {
-        const ingredients = await Api.ingredients.getIngredients();
-        setIngredients(ingredients);
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  const [prices, setPrices] = useState<PriceRange>({
+    minPrice: Number(searchParams.get('minPrice')),
+    maxPrice: Number(searchParams.get('maxPrice')),
+  });
+  const [sizes, { toggle: setSizes }] = useSet(
+    new Set<string>(
+      searchParams.get('sizes') ? searchParams.get('sizes')?.split(',') : []
+    )
+  );
+  const [crusts, { toggle: setCrusts }] = useSet(
+    new Set<string>(
+      searchParams.get('crusts') ? searchParams.get('crusts')?.split(',') : []
+    )
+  );
 
-    fetchIngredients();
-  }, []);
-
+  const updatePrices = (
+    name: string,
+    event: React.ChangeEvent<EventTarget>
+  ) => {
+    setPrices({
+      ...prices,
+      [name]: Number((event.target as HTMLInputElement).value),
+    });
+  };
   return {
-    ingredients,
     selectedIngredients,
-    onAddId: toggle,
+    prices,
+    sizes,
+    crusts,
+    setIngredients: toggle,
+    updatePrices,
+    setSizes,
+    setCrusts,
+    setPrices,
   };
 };
