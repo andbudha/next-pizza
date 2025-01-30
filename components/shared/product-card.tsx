@@ -3,7 +3,6 @@ import React from 'react';
 import { Title } from './title';
 import { Button } from '../ui';
 import { Plus } from 'lucide-react';
-
 import { Product } from './product-group-list';
 
 type Props = {
@@ -20,10 +19,12 @@ export const ProductCard = ({ product }: Props) => {
         </div>
       </Link>
       <Title text={product.name} size="sm" className="mb-1 mt-3 font-bold" />
-      <p className="text-sm text-gray-400 h-[30px]">{product.ingredients}</p>
+      <p className="text-sm text-gray-400 h-[30px]">
+        {product.ingredients.map((ing) => ing.name).join(', ')}
+      </p>
       <div className="flex items-center justify-between mt-4">
         <span className="text-[20px]">
-          from <b>{product.price}€</b>
+          <b>{product.items && product.items[0] && product.items[0].price}€</b>
         </span>
         <Button variant={'secondary'} className="text-base fonr-bold">
           <Plus size={20} className="mr-1" /> add
