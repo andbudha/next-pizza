@@ -6,16 +6,34 @@ import { ProductCard } from './product-card';
 import { useIntersection } from 'react-use';
 import { useCategoryStore } from '@/store/category';
 
+type Item = {
+  id: number;
+  price: number | null;
+  size: number | null;
+  pizzaType: number | null;
+  productId: number | null;
+};
+type Ingredient = {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 export type Product = {
   id: number;
   name: string;
   imageUrl: string;
-  price: number;
-  ingredients: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  categoryId: number;
+  ingredients: Ingredient[];
+  items: Item[];
 };
 type Props = {
   title: string;
-  items: Product[];
+  products: Product[];
   categoryId: number;
   className?: string;
   listClassName?: string;
@@ -23,7 +41,7 @@ type Props = {
 
 export const ProductGroupList = ({
   title,
-  items,
+  products,
   categoryId,
   className,
   listClassName,
@@ -35,7 +53,6 @@ export const ProductGroupList = ({
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   React.useEffect(() => {
     if (intersection?.isIntersecting) {
-      console.log('INTERSECTION:::', title, categoryId);
       setActiveCategoryId(categoryId);
     }
   }, [categoryId, intersection?.isIntersecting, title]);
@@ -48,7 +65,7 @@ export const ProductGroupList = ({
           listClassName
         )}
       >
-        {items.map((product) => (
+        {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
