@@ -112,8 +112,45 @@ async function up() {
       },
     },
   });
+
   await prisma.productItem.createMany({
     data: [
+      {
+        productId: 1,
+        price: 6,
+      },
+      {
+        productId: 2,
+        price: 5,
+      },
+      {
+        productId: 3,
+        price: 6,
+      },
+      {
+        productId: 4,
+        price: 5,
+      },
+      {
+        productId: 5,
+        price: 6,
+      },
+      {
+        productId: 6,
+        price: 5,
+      },
+      {
+        productId: 7,
+        price: 2,
+      },
+      {
+        productId: 8,
+        price: 3,
+      },
+      {
+        productId: 9,
+        price: 3,
+      },
       {
         productId: margherita.id,
         price: 10,
