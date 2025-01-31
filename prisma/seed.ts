@@ -116,6 +116,18 @@ async function up() {
   await prisma.productItem.createMany({
     data: [
       {
+        productId: 10,
+        price: 2,
+      },
+      {
+        productId: 11,
+        price: 2,
+      },
+      {
+        productId: 12,
+        price: 2,
+      },
+      {
         productId: 1,
         price: 6,
       },

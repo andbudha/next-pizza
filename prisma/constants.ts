@@ -3,7 +3,6 @@ export const categories = [
   { name: 'Breakfast' },
   { name: 'Coffee' },
   { name: 'Baverages' },
-  { name: 'Desserts' },
 ];
 
 export const ingredients = [
@@ -165,5 +164,23 @@ export const products = [
     imageUrl:
       'https://media.dodostatic.net/image/r:233x233/11ee7d5f22cf7f75aa4cd07e88c36e0c.avif',
     categoryId: 3,
+  },
+  {
+    name: 'Coca-Cola',
+    imageUrl:
+      'https://www.hungryjacks.com.au/Upload/HJ/Media/Menu/category/App-Images-7_1.png',
+    categoryId: 4,
+  },
+  {
+    name: 'Fanta',
+    imageUrl:
+      'https://www.hungryjacks.com.au/Upload/HJ/Media/Menu/category/App-Images-7_1.png',
+    categoryId: 4,
+  },
+  {
+    name: 'Sprite',
+    imageUrl:
+      'https://www.hungryjacks.com.au/Upload/HJ/Media/Menu/category/App-Images-7_1.png',
+    categoryId: 4,
   },
 ];
