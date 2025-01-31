@@ -36,11 +36,11 @@ async function up() {
     data: products,
   });
 
-  const margherita = await prisma.product.create({
+  const funghi = await prisma.product.create({
     data: {
-      name: 'Margherita',
+      name: 'Funghi',
       imageUrl:
-        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+        'https://media.dodostatic.net/image/r:233x233/11ee7d5f1c0043c2985bbf6397e459ed.avif',
       categoryId: 1,
 
       ingredients: {
@@ -52,7 +52,7 @@ async function up() {
     data: {
       name: 'Pepperoni',
       imageUrl:
-        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+        'https://media.dodostatic.net/image/r:233x233/11ee7d5ed4c9050d84b1932a18396c2e.avif',
       categoryId: 1,
 
       ingredients: {
@@ -65,7 +65,7 @@ async function up() {
     data: {
       name: 'Hawaiian',
       imageUrl:
-        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+        'https://media.dodostatic.net/image/r:233x233/11ee7d5f1870a83586e2c6899863d80a.avif',
       categoryId: 1,
 
       ingredients: {
@@ -78,7 +78,7 @@ async function up() {
     data: {
       name: 'BBQ Chicken',
       imageUrl:
-        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+        'https://media.dodostatic.net/image/r:233x233/11ee7d5ec8ff89fdb4eb4c2fa1a066fe.avif',
       categoryId: 1,
 
       ingredients: {
@@ -91,7 +91,7 @@ async function up() {
     data: {
       name: 'Veggie',
       imageUrl:
-        'https://media.dodostatic.net/image/r:584x584/11ee7d5ec7f77a5b992e9da2e434e478.avif',
+        'https://media.dodostatic.net/image/r:233x233/11ee7d5ee11701cb9907d0b38bbcffaa.avif',
       categoryId: 1,
 
       ingredients: {
@@ -164,13 +164,13 @@ async function up() {
         price: 3,
       },
       {
-        productId: margherita.id,
+        productId: funghi.id,
         price: 10,
         pizzaType: 1,
         size: 28,
       },
       {
-        productId: margherita.id,
+        productId: funghi.id,
         price: 11,
         pizzaType: 2,
         size: 33,
