@@ -13,7 +13,7 @@ type Props = {
 export const ProductCard = ({ product }: Props) => {
   return (
     <div className=" h-[440px] w-[260px]">
-      <Link href={'/product/1'} className="w-[260px]">
+      <Link href={`/product/${product.id}`} className="w-[260px]">
         <div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px] w-[260px]">
           <img src={product.imageUrl} alt={'pizza image'} />
         </div>
